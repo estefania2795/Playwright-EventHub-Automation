@@ -14,29 +14,40 @@ import { defineConfig, devices } from '@playwright/test';
  */
 const config = ({ //this variable is holding all the information
 
-  //what test to run when you trigger your configuration file
+  // Folder where the tests are located
   testDir: './tests',
   //timeout the time that the page takes to load all the elements
-  //timeout applicable for all elements
+   // Maximum time for each test
   timeout: 40*1000,
   //timeout for assertions expect
    expect :{
     timeout: 5000,
    },
+
+  // Retry failed tests once
+  retries: 1,
+
+  //html report
   reporter : 'html',
   //browser to use
+
   use: {
-    //chrome
-    browserName : 'chromium',
-    //safari
-    //browserName : 'webkit',
-    headless : false
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    
+    headless: false,
   },
-
-  /* Configure projects for major browsers */
-
+  projects: [
+    {
+        name: 'chromium',
+        use: {
+            browserName: 'chromium'
+        },
+    },
+    {
+        name: 'firefox',
+        use: {
+            browserName: 'firefox'
+        },
+    },
+],
 });
 module.exports = config
 
